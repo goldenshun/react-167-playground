@@ -1,13 +1,25 @@
+import { Suspense } from 'react';
+import { unstable_createResource } from 'react-cache'; // eslint-disable-line camelcase
 import withClientOnlyNext from '../lib/withClientOnlyNext';
+import { fetch } from '../lib/DeploymentSessionData';
 
-const Suspense = () => {
-  console.log('Suspense');
+const SessionDataResource = unstable_createResource(fetch);
 
+const ShowSessionData = () => {
+  const session = SessionDataResource.read();
+  console.log('session', session);
   return (
-    <div>
-      Oh Yeah!
-    </div>
+    <div>{`Session: ${session.id}`}</div>
   );
 };
 
-export default withClientOnlyNext(Suspense);
+const SuspenseExample = () => {
+  console.log('SuspenseExample');
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ShowSessionData />
+    </Suspense>
+  );
+};
+
+export default withClientOnlyNext(SuspenseExample);
