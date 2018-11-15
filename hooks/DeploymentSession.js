@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
-import fetchDeploymentSession from '../lib/fetchDeploymentSession';
+import { create, fetch } from '../lib/DeploymentSessionData';
 
 const DeploymentSession = () => {
   const [deploymentSession, setDeploymentSession] = useState(null);
 
+  const createDeploymentSession = () => {
+    create().then((result) => {
+      setDeploymentSession(result);
+    });
+  };
+
   useEffect(() => {
-    fetchDeploymentSession()
+    fetch()
       .then((result) => {
         setDeploymentSession(result);
       });
   }, []);
 
-  return { deploymentSession, setDeploymentSession };
+  return { deploymentSession, createDeploymentSession };
 };
 
 export default DeploymentSession;
