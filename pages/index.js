@@ -8,7 +8,7 @@ const Index = () => {
     <div>
       <div>{`Session ${deploymentSession.id}`}</div>
       <div>
-        <button type="button" onClick={() => createDeploymentSession({ id: 'changed_id' })}>Set Deployment Session</button>
+        <button type="button" onClick={() => createDeploymentSession()}>Set Deployment Session</button>
       </div>
     </div>
   );
